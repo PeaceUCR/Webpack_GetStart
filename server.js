@@ -11,8 +11,12 @@ app.get('/api', (req, res) => {
     res.send('I am api end point');
 });
 
+
+console.log(process.env.NODE_ENV);
+
 //no need to watch source code....
 if(process.env.NODE_ENV === 'production'){
+    console.log("I am production mode");
     app.use(express.static(path.resolve(__dirname, 'build')));
     app.get('*', (req, res) => {
         res.sendFile(path.resolve(__dirname, 'build/test.html'));
@@ -20,10 +24,10 @@ if(process.env.NODE_ENV === 'production'){
 
 }else{
     //if source cod updated, then recompiling!
-    console.log("I am Here");
+    console.log("I am development mode");
     const middleware = require('webpack-dev-middleware');
     const webpack = require('webpack');
-    const webpackConfig = require('./webpack.config.js');
+    const webpackConfig = require('./webpack.development.config.js');
     app.use(middleware(webpack(webpackConfig)));
     app.use(express.static(path.resolve(__dirname, 'build')));
     app.get('*', (req, res) => {

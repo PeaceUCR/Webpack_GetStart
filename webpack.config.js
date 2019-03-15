@@ -4,6 +4,8 @@
 //get current path by nodejs, path.resolve(__dirname) means current working dir
 const path = require('path');
 
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
 const config = {
     //entry with all requires at index.js
     entry: './src/index.js',
@@ -34,7 +36,15 @@ const config = {
         contentBase: './build',
         compress: true
         //port: 9000
-    }
+    },
+    plugins: [new HtmlWebpackPlugin({
+        //build file name
+        filename: 'test.html',
+        //source file
+        template: path.resolve(__dirname,'./src/test.html')
+        //note the script tag for bundle.js will auto added into test.html after build!
+    })],
+    mode: 'development'
 };
 
 module.exports = config;

@@ -92,10 +92,24 @@ then less loader
          }
 Because add less file only when required by js, can't do independently
 
- 7. can handle image, like image compression
+ 7.HTML plugin
+ 
+ npm install --save-dev html-webpack-plugin
+ 
+ https://github.com/jantimon/html-webpack-plugin#options
+        
+        plugins: [new HtmlWebpackPlugin({
+                //build file name
+                filename: 'test.html',
+                //source file
+                template: path.resolve(__dirname,'./src/test.html')
+                //note the script tag for bundle.js will auto added into test.html after build!
+            })]
+
+ 8. can handle image, like image compression
  https://www.udemy.com/webpack-2-the-complete-developers-guide/learn/v4/t/lecture/6296264?start=405
  
- 8.code split(only load necessary js code)
+ 9.code split(only load necessary js code)
  https://www.udemy.com/webpack-2-the-complete-developers-guide/learn/v4/t/lecture/6296278?start=225
  if needed, call
         
@@ -105,7 +119,7 @@ Because add less file only when required by js, can't do independently
         })
  
  
- 9. Webpack dev server
+ 10. Webpack dev server
  instead of manually open the html file, open on server
 npm install --save-dev webpack-dev-server 
 https://stackoverflow.com/questions/40379139/cannot-find-module-webpack-bin-config-yargs
@@ -137,7 +151,7 @@ https://webpack.js.org/configuration/dev-server/
           }
 
 
-10. Webpack-dev-server and node server
+11. Webpack-dev-server and node server
 https://www.udemy.com/webpack-2-the-complete-developers-guide/learn/v4/t/lecture/6308320?start=15
 
 npm install webpack-dev-middleware --save-dev
@@ -162,3 +176,15 @@ set app.get route for ui file return
             app.get('*', (req, res) => {
                 res.sendFile(path.resolve(__dirname, 'build/test.html'));
             });
+  
+12. production mode?
+
+https://webpack.js.org/concepts/mode/
+
+add mode: 'development' to the const config obj, then mode warning is gone            
+            
+for the production mode for node server, the value still undefined, manully set in script
+            
+https://stackoverflow.com/questions/11104028/process-env-node-env-is-undefined            
+
+Then set the seperate webpack.config.js for two mode
