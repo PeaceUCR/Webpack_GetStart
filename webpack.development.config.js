@@ -5,6 +5,8 @@ const path = require('path');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
 const webpack = require('webpack');
 
 const config = {
@@ -25,11 +27,11 @@ const config = {
             },
             {
                 test: /\.css$/,
-                use: ['style-loader', 'css-loader']
+                use: [ 'style-loader', MiniCssExtractPlugin.loader , 'css-loader']
             },
             {
                 test: /\.less$/,
-                use: ['style-loader', 'css-loader', 'less-loader']
+                use: ['style-loader', MiniCssExtractPlugin.loader ,'css-loader', 'less-loader']
             }
         ]
     },
@@ -47,7 +49,13 @@ const config = {
     }),
         new webpack.NamedModulesPlugin(),
         new webpack.NamedChunksPlugin(),
-        new webpack.DefinePlugin({ "process.env.NODE_ENV": JSON.stringify("development") })
+        new webpack.DefinePlugin({ "process.env.NODE_ENV": JSON.stringify("development") }),
+        new MiniCssExtractPlugin({
+            // Options similar to the same options in webpackOptions.output
+            // both options are optional
+            filename: "[name].css",
+            chunkFilename: "[id].css"
+        })
     ],
     mode: 'development',
     devtool: 'eval',

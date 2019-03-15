@@ -81,7 +81,7 @@ how to import other js file? Option:
             max-width: 200px;
         }</style>
 
-then less loader
+**then less loader**
             
         "less": "^3.9.0",
         "less-loader": "^4.1.0",
@@ -91,6 +91,32 @@ then less loader
              use: ['style-loader', 'css-loader', 'less-loader']
          }
 Because add less file only when required by js, can't do independently
+
+
+**mini-css-extract-plugin**
+his plugin extracts CSS into separate files. It creates a CSS file per JS file which contains CSS. It supports On-Demand-Loading of CSS and SourceMaps.
+
+npm install --save-dev mini-css-extract-plugin
+    
+**if no this, then /build folder will not have independent css file**
+
+then set
+            
+                    new MiniCssExtractPlugin({
+                        // Options similar to the same options in webpackOptions.output
+                        // both options are optional
+                        filename: "[name].css",
+                        chunkFilename: "[id].css"
+                    })
+    
+                        {
+                            test: /\.css$/,
+                            use: [ 'style-loader', MiniCssExtractPlugin.loader , 'css-loader']
+                        },
+                        {
+                            test: /\.less$/,
+                            use: ['style-loader', MiniCssExtractPlugin.loader ,'css-loader', 'less-loader']
+                        }
 
  7.HTML plugin
  
